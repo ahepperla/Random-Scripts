@@ -11,6 +11,6 @@ peaks[,6] = "+"
 
 out_basename = gsub("_summits.bed","", args[1], fixed=TRUE)
 
-write.out(peaks, file=paste0(out_basename,"_summit_plusMinus250_scorePerMillion.bed"), row.names=F, col.names=F, sep="\t", quote=F)
-write.out(peaks[peaks[,5] >= 3,], file=paste0(out_basename,"_summit_plusMinus250_scorePerMillion_greaterLog3SPM.bed"), row.names=F, col.names=F, sep="\t", quote=F)
-write.out(peaks[peaks[,5] >= 5,], file=paste0(out_basename,"_summit_plusMinus250_scorePerMillion_greaterLog5SPM.bed"), row.names=F, col.names=F, sep="\t", quote=F)
+write.table(peaks, file=paste0(out_basename,"_summit_plusMinus250_scorePerMillion.bed"), row.names=F, col.names=F, sep="\t", quote=F)
+write.table(peaks[peaks[,5] >= 3,], file=paste0(out_basename,"_summit_plusMinus250_scorePerMillion_greaterLog3SPM.bed"), row.names=F, col.names=F, sep="\t", quote=F)
+write.table(peaks[peaks[,5] >= 5,], file=paste0(out_basename,"_summit_plusMinus250_scorePerMillion_greaterLog5SPM.bed"), row.names=F, col.names=F, sep="\t", quote=F)
