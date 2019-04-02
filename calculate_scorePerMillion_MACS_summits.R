@@ -5,8 +5,8 @@ peaks = read.table(args[1], sep="\t")
 peaks.total.score = sum(peaks[,5])
 
 peaks[,5] = peaks[,5]/(peaks.total.score/1000000)
-peaks[,1] = peaks[,1]-250
-peaks[,2] = peaks[,2]+250
+peaks[,2] = peaks[,2]-250
+peaks[,3] = peaks[,3]+250
 peaks[,6] = "+"
 
 out_basename = gsub("_summits.bed","", args[1], fixed=TRUE)
