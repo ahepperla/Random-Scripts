@@ -4,7 +4,7 @@ args = commandArgs(TRUE)
 peaks = read.table(args[1], sep="\t")
 peaks.total.score = sum(peaks[,5])
 
-peaks[,5] = peaks[,5]/(peak.total.score/1000000)
+peaks[,5] = peaks[,5]/(peaks.total.score/1000000)
 peaks[,1] = peaks[,1]-250
 peaks[,2] = peaks[,2]+250
 peaks[,6] = "+"
