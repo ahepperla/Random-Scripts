@@ -27,6 +27,9 @@ while(<MASTER>){
 	chomp $_;
 	
 	my @cur_region = split(/\t/, $_);
+	if($cur_region[0] =~ m/\_/){
+		next;
+	}
 	
 	if($cur_region[0] ne $anchor_region_arr[0]){ #if new region is on a different chromosome
 		if($overlapping_counter > 1){ #if the current anchor region is alone, dont print out (require at least one overlap, meaning a peak is found in at least 2 samples)
