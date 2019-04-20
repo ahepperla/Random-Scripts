@@ -68,12 +68,12 @@ function ssub {
         mkdir -p \$SLURMLOGLOC\$day
         log=\$(date '+%Y%m%d_%H-%M-%S-%3N')
         cmd=\"sbatch -o \$SLURMLOGLOC\$day/\$log -e \$SLURMLOGLOC/\$day/\$log --time=10-12 --open-mode=append \$*\"
-        notify=\$(echo \$cmd | sed -nE 's/.+notify.(\\w+).+/\1/p')
+        notify=\$(echo \$cmd | sed -nE 's/.+notify.(\\w+).+/\\1/p')
         if ! { [ \"\$notify\" = \"ON\" ] || [ \"\$notify\" = \"OFF\" ]; }; then
                 notify=\"ON\"
         fi
 
-            cmd2=\$(echo \$cmd | sed -E 's/--notify\=\\w+ //')
+            cmd2=\$(echo \$cmd | sed -E 's/--notify\\=\\w+ //')
 
         echo -e \"Your job looked like:\\n###################################################################################\\n\" \>\> \$SLURMLOGLOC\$day/\$log
         echo \$cmd2 \>\> \$SLURMLOGLOC/\$day/\$log
