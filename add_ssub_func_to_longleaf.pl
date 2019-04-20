@@ -92,7 +92,7 @@ function ssub {
         fi
             memoryID=\"\$(eval \$memory | cut -f 4 -d ' ')\"
 
-        queue=\$(echo \$cmd2 | sed -nE 's/.+partition.(\\w+).+/\1/p')
+        queue=\$(echo \$cmd2 | sed -nE 's/.+partition.(\\w+).+/\\1/p')
         if [ \"\$partition\" = \"\" ]; then
                 queue=\"general\"
         fi
