@@ -56,11 +56,11 @@ my $id = `id`;
 my @id = split(/\s/, $id);
 my @onyen = split(/\(/, $id[0]);
 $onyen[1] =~ s/\)//;
-my $pine_junk = "/pine/scr/".substr($onyen[1], 0, 1)."/".substr($onyen[1], 1, 1)."/".$onyen[1]."/junk"; 
-system("mkdir $pine_junk");
+my $work_junk = "/work/users/".substr($onyen[1], 0, 1)."/".substr($onyen[1], 1, 1)."/".$onyen[1]."/junk"; 
+system("mkdir $work_junk");
 system("mkdir $log_dir_destination/SLURM_logs/");
 
-open(OUT, ">$pine_junk/ssub.txt");
+open(OUT, ">$work_junk/ssub.txt");
 my $ssub_command = "export SLURMLOGLOC=$log_dir_destination/SLURM_logs/
 
 function ssub {
@@ -81,12 +81,12 @@ function ssub {
         jobID=\"\$(eval \$cmd2 | cut -f 4 -d ' ')\"
 
         if [ \"\$notify\" = \"ON\" ]; then
-                memory=\"sbatch -o $pine_junk/\$log -d afterany:\$jobID --partition general --wrap=\\\"echo -e '\\n\\nJob runtime metrics:\\n###################################################################################\\n' \>\> \$SLURMLOGLOC\$day/\$log;\
+                memory=\"sbatch -o $work_junk/\$log -d afterany:\$jobID --partition general --wrap=\\\"echo -e '\\n\\nJob runtime metrics:\\n###################################################################################\\n' \>\> \$SLURMLOGLOC\$day/\$log;\
                 sacct --format=\"JobID,JobName,Partition,AllocCPUS,Submit,Elapsed,State,CPUTime,MaxRSS\" --units=G -j \$jobID \>\> \$SLURMLOGLOC\$day/\$log;\
                 echo -e '\\n###################################################################################\\n' \>\> \$SLURMLOGLOC\$day/\$log;\
                 echo 'Subject: SLURM job \$jobID' | cat - \$SLURMLOGLOC\$day/\$log | sendmail $email\\\"\"
         elif [ \"\$notify\" = \"OFF\" ]; then
-                memory=\"sbatch -o $pine_junk/\$log -d afterany:\$jobID --partition general --wrap=\\\"echo -e '\\n\\nJob runtime metrics:\\n###################################################################################\\n' \>\> \$SLURMLOGLOC\$day/\$log;\
+                memory=\"sbatch -o $work_junk/\$log -d afterany:\$jobID --partition general --wrap=\\\"echo -e '\\n\\nJob runtime metrics:\\n###################################################################################\\n' \>\> \$SLURMLOGLOC\$day/\$log;\
                 sacct --format=\"JobID,JobName,Partition,AllocCPUS,Submit,Elapsed,State,CPUTime,MaxRSS\" --units=G -j \$jobID \>\> \$SLURMLOGLOC\$day/\$log;\
                 echo -e '\\n###################################################################################\\n' \>\> \$SLURMLOGLOC\$day/\$log\\\"\"
         fi
@@ -114,4 +114,4 @@ function ssub {
 print OUT $ssub_command;
 close(OUT);
 
-my $cat_command = `cat $pine_junk/ssub.txt >> ~/.bashrc`;
+my $cat_command = `cat $work_junk/ssub.txt >> ~/.bashrc`;
